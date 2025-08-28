@@ -1,0 +1,7 @@
+apiVersion: kpt.dev/v1alpha1
+kind: ResourceGroup
+metadata:
+  name: inventory-68191533
+  namespace: monitoring # kpt-set: ${namespace}
+  labels:
+    cli-utils.sigs.k8s.io/inventory-id: 26feb24c161bfd94db429fbf5bd4032b98d3e2c8-1752231328959332503

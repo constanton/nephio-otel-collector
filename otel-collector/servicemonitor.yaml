@@ -1,0 +1,22 @@
+# A ServiceMonitor CR for Prometheus operator to scrape metrics
+# from the OpenTelemetry Collector. This assumes that a Prometheus
+# operator is installed and that a Prometheus exporter is configured
+# in the OpenTelemetry Collector config.yaml.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: otel-collector-nephio # kpt-set: ${appLabel}
+  namespace: monitoring # kpt-set: ${namespace}
+  labels:
+    release: deployment # kpt-set: ${release}
+spec:
+  selector:
+    matchLabels:
+      app: otel-collector-nephio # kpt-set: ${appLabel}
+  namespaceSelector:
+    matchNames:
+      - monitoring # kpt-set: ${namespace}
+  endpoints:
+    - port: prometheus-metrics # kpt-set: ${prometheusPortName}
+      path: /metrics
+      interval: 10s

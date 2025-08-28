@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: otel-collector-nephio # kpt-set: ${appLabel}
+  namespace: monitoring # kpt-set: ${namespace}
+  labels:
+    app: otel-collector-nephio # kpt-set: ${appLabel}
+spec:
+  selector:
+    component: otel-collector-nephio # kpt-set: ${appLabel}
+  ports:
+    - name: otlp-grpc
+      port: 4317 # kpt-set: ${otlpGrpcPort}
+      targetPort: 4317 # kpt-set: ${otlpGrpcPort}
+    - name: prometheus-metrics # kpt-set: ${prometheusPortName}
+      port: 8888 # kpt-set: ${promMetricsPort}
+      targetPort: 8888 # kpt-set: ${promMetricsPort}
+    - name: otlp-http
+      port: 4318
+      targetPort: 4318
